@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Label from "./Label";
 import Input from "./Input";
 import TextArea from "./TextArea";
-import { ContactFormData } from "../types/form";
+import { ContactFormData } from "../types";
 import { contactFormSchema } from "../schemas/contactForm";
 
 export default function Contact() {

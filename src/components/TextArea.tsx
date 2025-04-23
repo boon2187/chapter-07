@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { ReactNode } from "react";
-import { ContactFormData } from "../types/form";
+import { ContactFormData } from "../types";
 
 interface TextAreaProps {
   id: string;

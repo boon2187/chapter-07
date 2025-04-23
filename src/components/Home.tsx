@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Post } from "../types/post";
+import { Post } from "../types";
 import Article from "./Article";
 
 export default function Home() {

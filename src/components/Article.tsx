@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import DOMPurify from "dompurify";
 
-import { Post } from "../types/post";
+import { Post } from "../types";
 
 export default function Article({ post }: { post: Post }) {
   const sanitizedContent = DOMPurify.sanitize(post.content);

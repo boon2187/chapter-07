@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Post } from "../types/post";
+import { Post } from "../types";
 import { format } from "date-fns";
 import DOMPurify from "dompurify";
 
