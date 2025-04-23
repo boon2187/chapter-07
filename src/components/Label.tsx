@@ -1,4 +1,16 @@
-export default function Label({ htmlFor, children, className = "" }) {
+import { ReactNode } from "react";
+
+interface LabelProps {
+  htmlFor: string;
+  children: ReactNode;
+  className?: string;
+}
+
+export default function Label({
+  htmlFor,
+  children,
+  className = "",
+}: LabelProps) {
   return (
     <label
       htmlFor={htmlFor}

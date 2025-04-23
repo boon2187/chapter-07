@@ -1,25 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import Label from "./Label";
 import Input from "./Input";
 import TextArea from "./TextArea";
-
-const schema = z.object({
-  name: z
-    .string()
-    .min(1, { message: "お名前は必須項目です" })
-    .max(30, { message: "お名前は30文字以内で入力してください" }),
-  email: z
-    .string()
-    .min(1, { message: "メールアドレスは必須項目です" })
-    .email({ message: "正しいメールアドレスの形式で入力してください" }),
-  message: z
-    .string()
-    .min(1, { message: "内容は必須項目です" })
-    .max(500, { message: "内容は500文字以内で入力してください" }),
-});
+import { ContactFormData } from "../types/form";
+import { contactFormSchema } from "../schemas/contactForm";
 
 export default function Contact() {
   const [showValidation, setShowValidation] = useState(false);
@@ -29,8 +15,8 @@ export default function Contact() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: zodResolver(schema),
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -40,7 +26,7 @@ export default function Contact() {
     reValidateMode: "onSubmit",
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: ContactFormData) => {
     setShowValidation(false);
 
     try {
@@ -72,9 +58,14 @@ export default function Contact() {
 
       alert("送信しました");
       reset();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("送信エラー:", error);
-      alert(`送信に失敗しました: ${error.message}`);
+      // エラーオブジェクトを適切に型チェック
+      if (error instanceof Error) {
+        alert(`送信に失敗しました: ${error.message}`);
+      } else {
+        alert("送信に失敗しました");
+      }
     }
   };
 
