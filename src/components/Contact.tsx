@@ -2,6 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import Label from "./Label";
+import Input from "./Input";
+import TextArea from "./TextArea";
 
 const schema = z.object({
   name: z
