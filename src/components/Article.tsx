@@ -4,11 +4,7 @@ import DOMPurify from "dompurify";
 
 import { Post } from "../types/post";
 
-interface ArticleProps {
-  post: Post;
-}
-
-export default function Article({ post }: ArticleProps) {
+export default function Article({ post }: { post: Post }) {
   const sanitizedContent = DOMPurify.sanitize(post.content);
 
   return (
