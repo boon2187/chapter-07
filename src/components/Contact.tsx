@@ -113,10 +113,11 @@ export default function Contact() {
             </Label>
             <TextArea
               id="message"
-              register={register}
-              isSubmitting={isSubmitting}
+              rows={5}
+              {...register("message")}
+              disabled={isSubmitting}
               showValidation={showValidation}
-              errors={errors}
+              error={errors.message?.message}
             />
           </div>
 

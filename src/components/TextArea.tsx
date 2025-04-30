@@ -1,38 +1,28 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { ReactNode } from "react";
-import { ContactFormData } from "../types";
+import { ComponentProps, ReactNode, forwardRef, ForwardedRef } from "react";
 
-interface TextAreaProps {
+interface TextAreaProps extends ComponentProps<"textarea"> {
   id: string;
-  rows?: number;
-  register: UseFormRegister<ContactFormData>;
-  isSubmitting: boolean;
   showValidation: boolean;
-  errors: FieldErrors<ContactFormData>;
+  error?: ReactNode;
 }
 
-export default function TextArea({
-  id,
-  rows = 5,
-  register,
-  isSubmitting,
-  showValidation,
-  errors,
-}: TextAreaProps) {
+function TextArea(
+  { id, error, showValidation = false, ...props }: TextAreaProps,
+  ref: ForwardedRef<HTMLTextAreaElement>
+) {
   return (
     <div className="flex-1">
       <textarea
         id={id}
-        rows={rows}
         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-        {...register(id as keyof ContactFormData)}
-        disabled={isSubmitting}
+        ref={ref}
+        {...props}
       ></textarea>
-      {showValidation && errors && errors[id as keyof ContactFormData] && (
-        <p className="text-red-500 text-xs mt-1">
-          {errors[id as keyof ContactFormData]?.message as ReactNode}
-        </p>
+      {showValidation && error && (
+        <p className="text-red-500 text-xs mt-1">{error}</p>
       )}
     </div>
   );
 }
+
+export default forwardRef<HTMLTextAreaElement, TextAreaProps>(TextArea);
