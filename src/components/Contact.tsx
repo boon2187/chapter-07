@@ -88,10 +88,10 @@ export default function Contact() {
             <Label htmlFor="name">お名前</Label>
             <Input
               id="name"
-              register={register}
-              isSubmitting={isSubmitting}
+              {...register("name")}
+              disabled={isSubmitting}
               showValidation={showValidation}
-              errors={errors}
+              error={errors.name?.message}
             />
           </div>
 
@@ -100,10 +100,10 @@ export default function Contact() {
             <Input
               id="email"
               type="email"
-              register={register}
-              isSubmitting={isSubmitting}
+              {...register("email")}
+              disabled={isSubmitting}
               showValidation={showValidation}
-              errors={errors}
+              error={errors.email?.message}
             />
           </div>
 

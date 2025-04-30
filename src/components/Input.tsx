@@ -1,38 +1,28 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { ReactNode } from "react";
-import { ContactFormData } from "../types";
+import { ComponentProps, ForwardedRef, ReactNode, forwardRef } from "react";
 
-interface InputProps {
+interface InputProps extends ComponentProps<"input"> {
   id: string;
-  type?: string;
-  register: UseFormRegister<ContactFormData>;
-  isSubmitting: boolean;
   showValidation: boolean;
-  errors: FieldErrors<ContactFormData>;
+  error?: ReactNode;
 }
 
-export default function Input({
-  id,
-  type = "text",
-  register,
-  isSubmitting,
-  showValidation,
-  errors,
-}: InputProps) {
+function Input(
+  { id, showValidation = false, error, ...props }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
+) {
   return (
     <div className="flex-1">
       <input
         id={id}
-        type={type}
+        ref={ref}
         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
-        {...register(id as keyof ContactFormData)}
-        disabled={isSubmitting}
+        {...props}
       />
-      {showValidation && errors && errors[id as keyof ContactFormData] && (
-        <p className="text-red-500 text-xs mt-1">
-          {errors[id as keyof ContactFormData]?.message as ReactNode}
-        </p>
+      {showValidation && error && (
+        <p className="text-red-500 text-xs mt-1">{error}</p>
       )}
     </div>
   );
 }
+
+export default forwardRef<HTMLInputElement, InputProps>(Input);
